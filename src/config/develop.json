@@ -1,0 +1,21 @@
+{
+  "env": "development",
+  "appName": "Hệ thống Quản lý Nhà trọ (Boarding House)",
+  "version": "1.0.0",
+  "api": {
+    "baseUrl": "http://localhost:5154/api",
+    "timeout": 15000,
+    "retryAttempts": 3
+  },
+  "features": {
+    "enableMockData": true,
+    "enableDebugLogs": true,
+    "enableNotifications": true,
+    "autoRefreshInterval": 30000
+  },
+  "appSettings": {
+    "defaultTheme": "dark",
+    "defaultPageSize": 10,
+    "currency": "VND"
+  }
+}

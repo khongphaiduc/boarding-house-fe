@@ -1,0 +1,21 @@
+{
+  "env": "production",
+  "appName": "Hệ thống Quản lý Nhà trọ (Boarding House)",
+  "version": "1.0.0",
+  "api": {
+    "baseUrl": "https://api.boardinghouse.vn/api",
+    "timeout": 10000,
+    "retryAttempts": 2
+  },
+  "features": {
+    "enableMockData": false,
+    "enableDebugLogs": false,
+    "enableNotifications": true,
+    "autoRefreshInterval": 60000
+  },
+  "appSettings": {
+    "defaultTheme": "dark",
+    "defaultPageSize": 20,
+    "currency": "VND"
+  }
+}
