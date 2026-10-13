@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Search, Bell, Menu } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Search, Bell, Menu, ArrowLeftRight } from 'lucide-react';
 import { useBoardingHouse } from '../../context/BoardingHouseContext';
 
 interface BoardingHeaderProps {
@@ -90,7 +91,30 @@ export const BoardingHeader: React.FC<BoardingHeaderProps> = ({ onToggleSidebar 
       </div>
 
       {/* Right Actions */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', position: 'relative' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', position: 'relative' }}>
+        {/* Switch to Resident Portal Button */}
+        <Link
+          to="/resident"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.45rem',
+            backgroundColor: '#ecfdf5',
+            color: '#059669',
+            border: '1px solid #a7f3d0',
+            borderRadius: '8px',
+            padding: '0.42rem 0.85rem',
+            fontSize: '0.82rem',
+            fontWeight: 600,
+            textDecoration: 'none',
+            transition: 'background-color 0.15s ease',
+          }}
+          title="Chuyển sang giao diện Cư dân / Người thuê"
+        >
+          <ArrowLeftRight size={14} />
+          <span>Góc nhìn Cư dân (P.101)</span>
+        </Link>
+
         {/* Notification Bell */}
         <button
           onClick={() => setShowNotificationMenu((prev) => !prev)}

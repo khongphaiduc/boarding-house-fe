@@ -7,6 +7,11 @@ import type {
   DashboardSummary,
   RevenueMonth,
   ServiceRevenue,
+  ResidentBill,
+  ResidentContract,
+  MaintenanceTicket,
+  Announcement,
+  HouseRule,
 } from '../types/boardingHouse';
 import {
   initialRooms,
@@ -15,9 +20,16 @@ import {
   initialSummary,
   revenueMonths,
   serviceRevenues,
+  currentResident,
+  initialResidentBills,
+  residentContract,
+  initialMaintenanceTickets,
+  residentAnnouncements,
+  houseRules,
 } from '../services/boardingHouseData';
 
 interface BoardingHouseContextType {
+  // Landlord Side
   rooms: Room[];
   filteredRooms: Room[];
   filterTab: 'all' | RoomStatus;
@@ -32,6 +44,16 @@ interface BoardingHouseContextType {
   addRoom: (room: Omit<Room, 'id'>) => void;
   deleteRoom: (id: string) => void;
   updateRoom: (id: string, updates: Partial<Room>) => void;
+
+  // Resident Side
+  resident: typeof currentResident;
+  residentBills: ResidentBill[];
+  contract: ResidentContract;
+  maintenanceTickets: MaintenanceTicket[];
+  announcements: Announcement[];
+  rules: HouseRule[];
+  payBill: (billId: string) => void;
+  createMaintenanceTicket: (ticket: Omit<MaintenanceTicket, 'id' | 'createdAt' | 'status'>) => void;
 }
 
 const BoardingHouseContext = createContext<BoardingHouseContextType | undefined>(undefined);
@@ -42,6 +64,14 @@ export const BoardingHouseProvider: React.FC<{ children: React.ReactNode }> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [expiringContracts] = useState<ExpiringContract[]>(initialExpiringContracts);
   const [tasks] = useState<TodoTask[]>(initialTasks);
+
+  // Resident State
+  const [resident] = useState(currentResident);
+  const [residentBills, setResidentBills] = useState<ResidentBill[]>(initialResidentBills);
+  const [contract] = useState<ResidentContract>(residentContract);
+  const [maintenanceTickets, setMaintenanceTickets] = useState<MaintenanceTicket[]>(initialMaintenanceTickets);
+  const [announcements] = useState<Announcement[]>(residentAnnouncements);
+  const [rules] = useState<HouseRule[]>(houseRules);
 
   // Dynamically calculate summary stats based on room data
   const summary = useMemo<DashboardSummary>(() => {
@@ -97,6 +127,28 @@ export const BoardingHouseProvider: React.FC<{ children: React.ReactNode }> = ({
     setRooms((prev) => prev.map((r) => (r.id === id ? { ...r, ...updates } : r)));
   };
 
+  const payBill = (billId: string) => {
+    setResidentBills((prev) =>
+      prev.map((b) =>
+        b.id === billId
+          ? { ...b, status: 'paid', paidAt: 'Hôm nay' }
+          : b
+      )
+    );
+  };
+
+  const createMaintenanceTicket = (
+    ticket: Omit<MaintenanceTicket, 'id' | 'createdAt' | 'status'>
+  ) => {
+    const newTicket: MaintenanceTicket = {
+      ...ticket,
+      id: `maint-${Date.now()}`,
+      createdAt: 'Vừa xong',
+      status: 'pending',
+    };
+    setMaintenanceTickets((prev) => [newTicket, ...prev]);
+  };
+
   return (
     <BoardingHouseContext.Provider
       value={{
@@ -114,6 +166,14 @@ export const BoardingHouseProvider: React.FC<{ children: React.ReactNode }> = ({
         addRoom,
         deleteRoom,
         updateRoom,
+        resident,
+        residentBills,
+        contract,
+        maintenanceTickets,
+        announcements,
+        rules,
+        payBill,
+        createMaintenanceTicket,
       }}
     >
       {children}

@@ -5,6 +5,11 @@ import type {
   RevenueMonth,
   ServiceRevenue,
   DashboardSummary,
+  ResidentBill,
+  ResidentContract,
+  MaintenanceTicket,
+  Announcement,
+  HouseRule,
 } from '../types/boardingHouse';
 import { roomImages, userAvatars } from '../assets/mockImages';
 
@@ -379,3 +384,192 @@ export const initialRooms: Room[] = [
     floor: 4,
   },
 ];
+
+/* ================= Resident Mock Data ================= */
+
+export const currentResident = {
+  id: 'res-101',
+  name: 'Trần Văn B',
+  roomNumber: '101',
+  roomType: 'Phòng đơn',
+  phone: '0901 234 567',
+  avatar: userAvatars.tenantB,
+  joinedDate: '01/03/2026',
+  floor: 1,
+  area: '25m²',
+};
+
+export const initialResidentBills: ResidentBill[] = [
+  {
+    id: 'bill-10-2026',
+    month: 'Tháng 10, 2026',
+    roomPrice: 2500000,
+    electricity: {
+      prev: 1420,
+      current: 1540,
+      used: 120,
+      rate: 3500,
+      total: 420000,
+    },
+    water: {
+      prev: 85,
+      current: 91,
+      used: 6,
+      rate: 25000,
+      total: 150000,
+    },
+    internet: 100000,
+    cleaning: 50000,
+    totalAmount: 3220000,
+    status: 'unpaid',
+    dueDate: '15/10/2026',
+  },
+  {
+    id: 'bill-09-2026',
+    month: 'Tháng 9, 2026',
+    roomPrice: 2500000,
+    electricity: {
+      prev: 1315,
+      current: 1420,
+      used: 105,
+      rate: 3500,
+      total: 367500,
+    },
+    water: {
+      prev: 80,
+      current: 85,
+      used: 5,
+      rate: 25000,
+      total: 125000,
+    },
+    internet: 100000,
+    cleaning: 50000,
+    totalAmount: 3142500,
+    status: 'paid',
+    dueDate: '15/09/2026',
+    paidAt: '05/09/2026',
+  },
+  {
+    id: 'bill-08-2026',
+    month: 'Tháng 8, 2026',
+    roomPrice: 2500000,
+    electricity: {
+      prev: 1200,
+      current: 1315,
+      used: 115,
+      rate: 3500,
+      total: 402500,
+    },
+    water: {
+      prev: 74,
+      current: 80,
+      used: 6,
+      rate: 25000,
+      total: 150000,
+    },
+    internet: 100000,
+    cleaning: 50000,
+    totalAmount: 3202500,
+    status: 'paid',
+    dueDate: '15/08/2026',
+    paidAt: '04/08/2026',
+  },
+];
+
+export const residentContract: ResidentContract = {
+  contractCode: 'HD-2026-101',
+  roomNumber: '101',
+  roomType: 'Phòng đơn tiêu chuẩn',
+  startDate: '01/03/2026',
+  endDate: '28/02/2027',
+  monthlyRent: 2500000,
+  deposit: 2500000,
+  status: 'active',
+  landlordName: 'Nguyễn Văn A',
+  landlordPhone: '0909 888 999',
+  landlordZalo: '0909 888 999',
+};
+
+export const initialMaintenanceTickets: MaintenanceTicket[] = [
+  {
+    id: 'maint-1',
+    roomNumber: '101',
+    title: 'Máy lạnh không hoạt động, chảy nước dàn lạnh',
+    description: 'Bật điều hòa ở 24 độ nhưng chỉ thổi gió thường và có nước nhỏ giọt xuống sàn gỗ.',
+    category: 'Điện lạnh',
+    createdAt: '12/10/2026 09:30',
+    status: 'in_progress',
+    priority: 'high',
+  },
+  {
+    id: 'maint-2',
+    roomNumber: '101',
+    title: 'Bóng đèn trần phòng tắm bị chập chờn',
+    description: 'Đèn bật lúc sáng lúc tắt, nhờ chủ nhà thay bóng led mới giúp.',
+    category: 'Thiết bị điện',
+    createdAt: '25/08/2026 14:15',
+    status: 'completed',
+    priority: 'medium',
+  },
+];
+
+export const residentAnnouncements: Announcement[] = [
+  {
+    id: 'ann-1',
+    title: 'Thông báo chốt số điện nước tháng 10/2026',
+    content: 'Ban quản lý sẽ tiến hành ghi chỉ số công tơ điện nước vào lúc 19h00 ngày 14/10. Quý cư dân vui lòng có mặt hoặc kiểm tra đối chiếu qua ứng dụng.',
+    date: '12/10/2026',
+    type: 'notice',
+    author: 'Chủ nhà (Nguyễn Văn A)',
+  },
+  {
+    id: 'ann-2',
+    title: 'Bảo trì hệ thống máy bơm và súc rửa bồn nước',
+    content: 'Tạm ngắt nước từ 08h00 đến 11h00 sáng Thứ 5 (15/10) để vệ sinh định kỳ bồn chứa nước sạch trên sân thượng.',
+    date: '10/10/2026',
+    type: 'reminder',
+    author: 'Ban quản lý',
+  },
+  {
+    id: 'ann-3',
+    title: 'Nhắc nhở an ninh trật tự và khóa cổng tự động',
+    content: 'Sau 23h00 cổng tự động sẽ khóa vân tay / thẻ từ. Cư dân không mở cửa cho người lạ và nhắc nhở khách để xe đúng vạch quy định.',
+    date: '01/10/2026',
+    type: 'urgent',
+    author: 'Ban quản lý',
+  },
+];
+
+export const houseRules: HouseRule[] = [
+  {
+    id: 'rule-1',
+    title: 'Giờ giấc & Ra vào',
+    description: 'Cổng chính sử dụng khóa vân tay / thẻ từ thông minh hoạt động 24/7. Cư dân vui lòng khép chặt cửa sau khi ra vào.',
+    category: 'security',
+  },
+  {
+    id: 'rule-2',
+    title: 'Quy định tiếp khách',
+    description: 'Khách đến chơi không ở lại qua đêm sau 22h00 trừ khi đã báo trước với chủ nhà để đăng ký tạm trú theo quy định công an khu vực.',
+    category: 'general',
+  },
+  {
+    id: 'rule-3',
+    title: 'Vệ sinh hành lang & Khu chung',
+    description: 'Không để rác thải hoặc đồ đạc cá nhân cản trở lối đi chung. Rác phải được buộc chặt và bỏ vào thùng rác tầng trệt trước 21h00.',
+    category: 'cleanliness',
+  },
+  {
+    id: 'rule-4',
+    title: 'Tránh gây ồn ào',
+    description: 'Giữ trật tự chung sau 22h00. Không mở loa công suất lớn, không hát karaoke hoặc gây ồn ảnh hưởng tới các phòng lân cận.',
+    category: 'noise',
+  },
+  {
+    id: 'rule-5',
+    title: 'An toàn Phòng cháy chữa cháy',
+    description: 'Nghiêm cấm sử dụng bếp gas mini không an toàn hoặc bếp than. Ngắt aptomat các thiết bị công suất cao khi vắng nhà nhiều ngày.',
+    category: 'security',
+  },
+];
+
